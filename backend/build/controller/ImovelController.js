@@ -16,13 +16,31 @@ class ImovelController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const input = {
-                    token: req.headers.token,
+                    token: req.headers.authorization,
                     nome: req.body.nome
                 };
                 const imovelBusiness = new ImovelBusiness_1.ImovelBusiness();
                 yield imovelBusiness.CadastrarImovel({ token: input.token, nome: input.nome });
                 res.status(200).send({
                     message: "Imóvel cadastrado com sucesso!"
+                });
+            }
+            catch (erro) {
+                res.status(400).send(erro.message || erro.sqlMessage);
+            }
+        });
+    }
+    DeletarImovel(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const input = {
+                    token: req.headers.authorization,
+                    id: req.params.id
+                };
+                const imovelBusiness = new ImovelBusiness_1.ImovelBusiness();
+                yield imovelBusiness.DeletarImovel(input.id, input.token);
+                res.status(200).send({
+                    message: "Imóvel deletado com sucesso!"
                 });
             }
             catch (erro) {

@@ -25,10 +25,9 @@ class ImovelBusiness {
                 if (!input.nome) {
                     throw new Error("Insira um nome para o imóvel.");
                 }
-                console.log(input);
                 const IdUsuario = Autenticador_1.autenticador.pegarDado(input.token);
                 const usuario = yield UsuarioBaseDeDados_1.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id);
-                if (usuario.tipo !== "ADMIN") {
+                if (usuario.tipo.toUpperCase() !== "ADMIN") {
                     throw new Error("Usuário não autorizado. Somente administradores podem cadastrar imóveis.");
                 }
                 const id = GeradorDeId_1.geradorDeId.gerar();
@@ -37,6 +36,26 @@ class ImovelBusiness {
                 yield imovelBaseDeDados.CadastrarImovel(novoImovel);
             }
             catch (erro) {
+                throw new Error(erro.message || erro.sqlMessage);
+            }
+        });
+    }
+    DeletarImovel(id, token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!id || !token) {
+                    throw new Error("É necessário colocar o id e o token para deletar um imóvel.");
+                }
+                const IdUsuario = Autenticador_1.autenticador.pegarDado(token);
+                const usuario = yield UsuarioBaseDeDados_1.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id);
+                if (usuario.tipo.toUpperCase() !== "ADMIN") {
+                    throw new Error("Usuário não autorizado. Somente administradores podem cadastrar imóveis.");
+                }
+                const imovelBaseDeDados = new ImoveisBaseDeDados_1.ImoveisBaseDeDados();
+                yield imovelBaseDeDados.DeletarImovel(id);
+            }
+            catch (erro) {
+                throw new Error(erro.message || erro.sqlMessage);
             }
         });
     }
