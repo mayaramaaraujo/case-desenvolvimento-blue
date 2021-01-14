@@ -33,9 +33,13 @@ export class Usuario{
         return this.tipo
     }
 
+    public static UsuarioParaModelo = (usuario: any) => {
+        return new Usuario(usuario.id , usuario.nome, usuario.email, usuario.senha, usuario.tipo)
+    }
+
 }
 
-export const stringParaTipo = (entrada: string): TipoUsuario => {
+export const StringParaTipo = (entrada: string): TipoUsuario => {
     switch(entrada) {
         case "NORMAL":
             return TipoUsuario.NORMAL;
@@ -46,7 +50,15 @@ export const stringParaTipo = (entrada: string): TipoUsuario => {
     }
 }
 
+
 export enum TipoUsuario {
     NORMAL = "NORMAL",
     ADMIN = "ADMIN"
+}
+
+export interface UsuarioEntrada {
+    nome: string,
+    email: string,
+    senha: string,
+    tipo: TipoUsuario
 }

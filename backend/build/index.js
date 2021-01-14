@@ -6,10 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const UsuarioRotas_1 = require("./routes/UsuarioRotas");
 dotenv_1.default.config();
 const app = express_1.default();
 app.use(express_1.default.json());
 app.use(cors_1.default());
+app.use("/usuario", UsuarioRotas_1.usuarioRotas);
 app.listen(3003, () => {
     console.log("Servidor rodando na porta 3003");
 });
