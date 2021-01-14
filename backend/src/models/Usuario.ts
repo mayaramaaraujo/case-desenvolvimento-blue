@@ -62,3 +62,16 @@ export interface UsuarioEntrada {
     senha: string,
     tipo: TipoUsuario
 }
+
+export interface UsuarioEntrar {
+    email: string,
+    senha: string
+}
+
+export interface UsuarioSaida {
+    id: string,
+    nome: string,
+    email: string,
+    senha: string,
+    tipo: TipoUsuario
+}

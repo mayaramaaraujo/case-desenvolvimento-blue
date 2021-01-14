@@ -28,11 +28,25 @@ class UsuarioBaseDeDados extends BaseBaseDeDados_1.default {
                 })
                     .into(this.NomesTabelas.usuarios);
             }
-            catch (error) {
-                if (error.sqlMessage.includes("Duplicate entry")) {
+            catch (erro) {
+                if (erro.sqlMessage.includes("Duplicate entry")) {
                     throw new Error("Usuário já existe.");
                 }
-                throw new Error(error.message || error.sqlMessage);
+                throw new Error(erro.message || erro.sqlMessage);
+            }
+        });
+    }
+    PegarUsuarioPeloEmail(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const resultado = yield this.connection()
+                    .select("*")
+                    .from(this.NomesTabelas.usuarios)
+                    .where("email", email);
+                return resultado;
+            }
+            catch (erro) {
+                throw new Error(erro.message || erro.sqlMessage);
             }
         });
     }
