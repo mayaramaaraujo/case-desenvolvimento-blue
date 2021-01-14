@@ -14,4 +14,18 @@ export class Imovel{
     public pegarNome(): string {
         return this.nome
     }
+
+    public static ImovelParaModelo = (imovel: any) => {
+        return new Imovel(imovel.id , imovel.nome)
+    }
+}
+
+export interface ImovelEntrada {
+    id: string,
+    nome: string
+}
+
+export interface ImovelCadastro {
+    token: string
+    nome: string
 }

@@ -55,12 +55,10 @@ class UsuarioBusiness {
                 if (!resultado) {
                     throw new Error("Usuário não cadastrado.");
                 }
-                console.log(resultado);
                 const SenhaEstaCorreta = yield GeradorDeHash_1.geradorDeHash.compare(input.senha, resultado.senha);
                 if (!SenhaEstaCorreta) {
                     throw new Error("Senha inválida");
                 }
-                console.log(SenhaEstaCorreta);
                 const autenticador = new Autenticador_1.Autenticador();
                 const token = autenticador.gerarToken({ id: resultado.id });
                 return token;

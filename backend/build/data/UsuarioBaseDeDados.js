@@ -43,7 +43,21 @@ class UsuarioBaseDeDados extends BaseBaseDeDados_1.default {
                     .select("*")
                     .from(this.NomesTabelas.usuarios)
                     .where("email", email);
-                return resultado;
+                return resultado[0];
+            }
+            catch (erro) {
+                throw new Error(erro.message || erro.sqlMessage);
+            }
+        });
+    }
+    PegarUsuarioPeloId(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const resultado = yield this.connection()
+                    .select("*")
+                    .from(this.NomesTabelas.usuarios)
+                    .where("id", id);
+                return resultado[0];
             }
             catch (erro) {
                 throw new Error(erro.message || erro.sqlMessage);
