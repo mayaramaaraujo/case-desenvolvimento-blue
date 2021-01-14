@@ -36,6 +36,20 @@ export class UsuarioBaseDeDados extends BaseBaseDeDados {
         }
     }
 
+    public async PegarUsuarioPeloId(id: string): Promise<UsuarioSaida> {
+        try {
+            const resultado = await this.connection()
+            .select("*")
+            .from(this.NomesTabelas.usuarios)
+            .where("id", id)
+
+            return resultado[0]
+
+        } catch (erro) {
+            throw new Error(erro.message || erro.sqlMessage)
+        }
+    }
+
 }
 
 export const usuarioBaseDeDados: UsuarioBaseDeDados = new UsuarioBaseDeDados()

@@ -28,7 +28,7 @@ export class Autenticador {
     }
 }
 
-interface DadoAutenticacao {
+export interface DadoAutenticacao {
     id: string
 }
 
