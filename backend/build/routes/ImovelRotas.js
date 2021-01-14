@@ -9,4 +9,5 @@ const ImovelController_1 = require("../controller/ImovelController");
 exports.imovelRotas = express_1.default.Router();
 const imovelController = new ImovelController_1.ImovelController();
 exports.imovelRotas.post("/cadastro", imovelController.CadastrarImovel);
+exports.imovelRotas.delete("/:id", imovelController.DeletarImovel);
 //# sourceMappingURL=ImovelRotas.js.map
