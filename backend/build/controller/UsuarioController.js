@@ -33,6 +33,25 @@ class UsuarioController {
             }
         });
     }
+    Entrar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const input = {
+                    email: req.body.email,
+                    senha: req.body.senha
+                };
+                const usuarioBusiness = new UsuarioBusiness_1.UsuarioBusiness();
+                const token = yield usuarioBusiness.Entrar(input);
+                res.status(200).send({
+                    token: token,
+                    message: "Usuário logado com sucesso!"
+                });
+            }
+            catch (error) {
+                res.status(400).send(error.message || error.sqlMessage);
+            }
+        });
+    }
 }
 exports.UsuarioController = UsuarioController;
 //# sourceMappingURL=UsuarioController.js.map

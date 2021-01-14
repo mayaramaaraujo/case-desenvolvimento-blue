@@ -6,3 +6,4 @@ export const usuarioRotas = express.Router();
 const usuarioController = new UsuarioController()
 
 usuarioRotas.post("/cadastro", usuarioController.Cadastro)
+usuarioRotas.post("/entrar", usuarioController.Entrar)

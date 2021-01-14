@@ -22,7 +22,7 @@ class UsuarioBusiness {
                 if (!input.nome || !input.email || !input.senha || !input.tipo) {
                     throw new Error("Preencha todos os campos");
                 }
-                const tipo = Usuario_1.StringParaTipo(input.tipo.toLowerCase());
+                const tipo = Usuario_1.StringParaTipo(input.tipo.toUpperCase());
                 if (input.senha.length < 6) {
                     throw new Error("A senha deve ser maior que seis.");
                 }
@@ -35,10 +35,34 @@ class UsuarioBusiness {
                     senha: senhaHash,
                     tipo: tipo
                 });
-                console.log(tipo);
                 yield UsuarioBaseDeDados_1.usuarioBaseDeDados.Cadastro(novoUsuario);
                 const autenticador = new Autenticador_1.Autenticador();
                 const token = autenticador.gerarToken({ id: id });
+                return token;
+            }
+            catch (erro) {
+                throw new Error(erro.message || erro.sqlMessage);
+            }
+        });
+    }
+    Entrar(input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!input.email || !input.senha) {
+                    throw new Error("O campo email e senha são obrigatórios.");
+                }
+                const resultado = yield UsuarioBaseDeDados_1.usuarioBaseDeDados.PegarUsuarioPeloEmail(input.email);
+                if (!resultado) {
+                    throw new Error("Usuário não cadastrado.");
+                }
+                console.log(resultado);
+                const SenhaEstaCorreta = yield GeradorDeHash_1.geradorDeHash.compare(input.senha, resultado.senha);
+                if (!SenhaEstaCorreta) {
+                    throw new Error("Senha inválida");
+                }
+                console.log(SenhaEstaCorreta);
+                const autenticador = new Autenticador_1.Autenticador();
+                const token = autenticador.gerarToken({ id: resultado.id });
                 return token;
             }
             catch (erro) {
