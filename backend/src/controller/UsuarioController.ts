@@ -1,4 +1,4 @@
-import { Request, Response } from "express-serve-static-core";
+import { Request, Response } from "express";
 import { UsuarioBusiness } from "../business/UsuarioBusiness";
 import { UsuarioEntrada, UsuarioEntrar } from "../models/Usuario";
 
