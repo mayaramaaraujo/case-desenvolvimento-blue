@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { UsuarioBusiness } from "../business/UsuarioBusiness";
+import { usuarioBaseDeDados } from "../data/UsuarioBaseDeDados";
 import { UsuarioEntrada, UsuarioEntrar } from "../models/Usuario";
+import { autenticador } from "../services/Autenticador";
+import { geradorDeHash } from "../services/GeradorDeHash";
+import { geradorDeId } from "../services/GeradorDeId";
 
 export class UsuarioController {
     public async Cadastro(req: Request, res: Response) {
@@ -12,7 +16,7 @@ export class UsuarioController {
                 tipo: req.body.tipo
             }
 
-            const usuarioBusiness: UsuarioBusiness = new UsuarioBusiness()
+            const usuarioBusiness: UsuarioBusiness = new UsuarioBusiness(geradorDeId, geradorDeHash, usuarioBaseDeDados,autenticador)
             const token: string = await usuarioBusiness.Cadastro(input)
         
             res.status(200).send({
@@ -32,7 +36,7 @@ export class UsuarioController {
                 senha: req.body.senha
             }
 
-            const usuarioBusiness: UsuarioBusiness = new UsuarioBusiness()
+            const usuarioBusiness: UsuarioBusiness = new UsuarioBusiness(geradorDeId, geradorDeHash, usuarioBaseDeDados,autenticador)
             const token: string = await usuarioBusiness.Entrar(input)
 
             res.status(200).send({
@@ -50,7 +54,7 @@ export class UsuarioController {
                 token: req.headers.authorization as string
             }
 
-            const usuarioBusiness: UsuarioBusiness = new UsuarioBusiness()
+            const usuarioBusiness: UsuarioBusiness = new UsuarioBusiness(geradorDeId, geradorDeHash, usuarioBaseDeDados,autenticador)
             const resultado = await usuarioBusiness.PegarTodosOsUsuarios(input.token)
 
             res.status(200).send(resultado)

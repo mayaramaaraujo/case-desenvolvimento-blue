@@ -1,7 +1,11 @@
 //import { Request, Response } from "express-serve-static-core";
 import { Request, Response } from "express";
 import { VotosBusiness } from "../business/VotosBusiness";
+import { usuarioBaseDeDados } from "../data/UsuarioBaseDeDados";
+import { votosBaseDeDados } from "../data/VotosBaseDeDados";
 import { VotoUsuario } from "../models/Votos";
+import { autenticador } from "../services/Autenticador";
+import { geradorDeId } from "../services/GeradorDeId";
 
 export class VotoController {
     public async Votar(req: Request, res: Response){
@@ -11,7 +15,7 @@ export class VotoController {
                 imovel_votado: req.params.id
             }
 
-            const votoBusiness: VotosBusiness = new VotosBusiness()
+            const votoBusiness: VotosBusiness = new VotosBusiness(geradorDeId,votosBaseDeDados,autenticador,usuarioBaseDeDados)
             await votoBusiness.Votar(input)
 
             res.status(200).send({
@@ -28,7 +32,7 @@ export class VotoController {
                 token: req.headers.authorization as string,
             }
 
-            const votoBusiness: VotosBusiness = new VotosBusiness()
+            const votoBusiness: VotosBusiness = new VotosBusiness(geradorDeId,votosBaseDeDados,autenticador,usuarioBaseDeDados)
             const resultado = await votoBusiness.PegarTodosOsVotos(input.token)
 
             res.status(200).send(resultado)
@@ -49,8 +53,8 @@ export class VotoController {
                 token: req.headers.authorization as string,
                 imovel_id: req.params.id
             }
-
-            const votoBusiness: VotosBusiness = new VotosBusiness()
+            
+            const votoBusiness: VotosBusiness = new VotosBusiness(geradorDeId,votosBaseDeDados,autenticador,usuarioBaseDeDados)
             const resultado = await votoBusiness.PegarVotosPorImovel(input.token, input.imovel_id)
 
             res.status(200).send(resultado)

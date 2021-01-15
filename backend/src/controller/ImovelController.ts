@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { ImovelBusiness } from "../business/ImovelBusiness";
-import { ImovelCadastro, ImovelEntrada } from "../models/Imovel";
+import { imovelBaseDeDados } from "../data/ImoveisBaseDeDados";
+import { usuarioBaseDeDados } from "../data/UsuarioBaseDeDados";
+import { ImovelCadastro } from "../models/Imovel";
+import { autenticador } from "../services/Autenticador";
+import { geradorDeId } from "../services/GeradorDeId";
 
 export class ImovelController {
     public async CadastrarImovel(req: Request, res: Response) {
@@ -10,7 +14,7 @@ export class ImovelController {
                 nome: req.body.nome
             }
 
-            const imovelBusiness: ImovelBusiness = new ImovelBusiness()
+            const imovelBusiness: ImovelBusiness = new ImovelBusiness(geradorDeId,autenticador,usuarioBaseDeDados,imovelBaseDeDados)
             await imovelBusiness.CadastrarImovel({token: input.token, nome: input.nome})
 
             res.status(200).send({
@@ -35,7 +39,7 @@ export class ImovelController {
                 id: req.params.id
             }
 
-            const imovelBusiness: ImovelBusiness = new ImovelBusiness()
+            const imovelBusiness: ImovelBusiness = new ImovelBusiness(geradorDeId,autenticador,usuarioBaseDeDados,imovelBaseDeDados)
             await imovelBusiness.DeletarImovel(input.id, input.token)
 
             res.status(200).send({

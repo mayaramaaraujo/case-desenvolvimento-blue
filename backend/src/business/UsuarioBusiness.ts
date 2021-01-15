@@ -92,7 +92,8 @@ export class UsuarioBusiness {
 
 }
 
-export default new UsuarioBusiness(
+
+export const usuarioBusiness: UsuarioBusiness = new UsuarioBusiness(
     geradorDeId,
     geradorDeHash,
     usuarioBaseDeDados,
