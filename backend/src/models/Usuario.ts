@@ -4,7 +4,7 @@ export class Usuario{
         private nome: string,
         private email: string,
         private senha: string,
-        private tipo: TipoUsuario
+        private tipo?: TipoUsuario
     ) {
         this.id = id,
         this.nome = nome,
@@ -29,7 +29,7 @@ export class Usuario{
         return this.senha
     }
 
-    public pegarTipo(): string {
+    public pegarTipo(): string | undefined {
         return this.tipo
     }
 
@@ -60,7 +60,7 @@ export interface UsuarioEntrada {
     nome: string,
     email: string,
     senha: string,
-    tipo: TipoUsuario
+    tipo?: TipoUsuario
 }
 
 export interface UsuarioEntrar {

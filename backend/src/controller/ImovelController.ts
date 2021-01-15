@@ -17,7 +17,14 @@ export class ImovelController {
                 message: "Imóvel cadastrado com sucesso!"
             })
         } catch (erro) {
-            res.status(400).send(erro.message || erro.sqlMessage)
+            let mensagemErro = erro.message
+
+            if(erro.message.includes("jwt must be provided")){
+                mensagemErro = "Usuário não autorizado. É necessário ter o token de acesso."
+            }
+
+            res.status(400).send(mensagemErro || erro.sqlMessage)
+
         }
     }
 
@@ -36,7 +43,13 @@ export class ImovelController {
             })
             
         } catch (erro) {
-            res.status(400).send(erro.message || erro.sqlMessage)
+            let mensagemErro = erro.message
+
+            if(erro.message.includes("jwt must be provided")){
+                mensagemErro = "Usuário não autorizado. É necessário ter o token de acesso."
+            }
+
+            res.status(400).send(mensagemErro || erro.sqlMessage)
         }
     }
 }

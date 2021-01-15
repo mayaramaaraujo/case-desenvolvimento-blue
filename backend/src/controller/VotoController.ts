@@ -41,7 +41,7 @@ export class VotoController {
             res.status(400).send(mensagemErro || erro.sqlMessage)
         }
     }
-
+    
     public async PegarVotosPorImovel(req: Request, res: Response){
         try {
             const input = {

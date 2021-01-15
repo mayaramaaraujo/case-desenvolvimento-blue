@@ -1,4 +1,4 @@
-import { Usuario, UsuarioEntrar, UsuarioSaida } from "../models/Usuario";
+import { Usuario, UsuarioSaida } from "../models/Usuario";
 import BaseBaseDeDados from "./BaseBaseDeDados";
 
 export class UsuarioBaseDeDados extends BaseBaseDeDados {
@@ -45,6 +45,18 @@ export class UsuarioBaseDeDados extends BaseBaseDeDados {
 
             return resultado[0]
 
+        } catch (erro) {
+            throw new Error(erro.message || erro.sqlMessage)
+        }
+    }
+
+    public async PegarTodosOsUsuarios() {
+        try {
+            const resultado = await this.connection()
+            .select("*")
+            .from(this.NomesTabelas.usuarios)
+
+            return resultado
         } catch (erro) {
             throw new Error(erro.message || erro.sqlMessage)
         }
