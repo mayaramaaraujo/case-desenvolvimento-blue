@@ -5,5 +5,5 @@ export const imovelRotas = express.Router();
 
 const imovelController = new ImovelController()
 
-imovelRotas.post("/cadastro", imovelController.CadastrarImovel)
-imovelRotas.delete("/:id", imovelController.DeletarImovel)
+imovelRotas.post("/cadastro", imovelController.CadastrarImovel) //autenticado adm
+imovelRotas.delete("/:id", imovelController.DeletarImovel)  //autenticado adm

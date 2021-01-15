@@ -7,3 +7,4 @@ const usuarioController = new UsuarioController()
 
 usuarioRotas.post("/cadastro", usuarioController.Cadastro)
 usuarioRotas.post("/entrar", usuarioController.Entrar)
+usuarioRotas.get("/todos", usuarioController.PegarTodosOsUsuarios) // autenticado adm
