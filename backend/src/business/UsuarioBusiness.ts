@@ -1,11 +1,18 @@
-import { usuarioBaseDeDados} from "../data/UsuarioBaseDeDados"
-import { Usuario, UsuarioEntrada, StringParaTipo, TipoUsuario, UsuarioEntrar, UsuarioSaida } from "../models/Usuario"
+import { UsuarioBaseDeDados, usuarioBaseDeDados} from "../data/UsuarioBaseDeDados"
+import { Usuario, UsuarioEntrada, UsuarioEntrar, UsuarioSaida } from "../models/Usuario"
 import { autenticador, Autenticador, DadoAutenticacao } from "../services/Autenticador"
-import { geradorDeHash } from "../services/GeradorDeHash"
-import { geradorDeId } from "../services/GeradorDeId"
+import { GeradorDeHash, geradorDeHash } from "../services/GeradorDeHash"
+import { GeradorDeId, geradorDeId } from "../services/GeradorDeId"
 
 
 export class UsuarioBusiness {
+    constructor(
+        private geradorDeId: GeradorDeId,
+        private geradorDeHash: GeradorDeHash,
+        private usuarioBaseDeDados: UsuarioBaseDeDados,
+        private autenticador: Autenticador
+    ){}
+
     public async Cadastro(input: UsuarioEntrada): Promise<any> {
         try {
             if(!input.nome || !input.email || !input.senha) {
@@ -16,9 +23,9 @@ export class UsuarioBusiness {
                 throw new Error("A senha deve ser maior que seis.")
             }
 
-            const id: string = geradorDeId.gerar()
+            const id: string = this.geradorDeId.gerar()
 
-            const senhaHash: string = await geradorDeHash.hash(input.senha)
+            const senhaHash: string = await this.geradorDeHash.hash(input.senha)
 
             const novoUsuario: Usuario = Usuario.UsuarioParaModelo({
                 id: id, 
@@ -28,10 +35,9 @@ export class UsuarioBusiness {
                 tipo: input.tipo
             });
 
-            await usuarioBaseDeDados.Cadastro(novoUsuario)
+            await this.usuarioBaseDeDados.Cadastro(novoUsuario)
 
-            const autenticador: Autenticador = new Autenticador()
-            const token: string = autenticador.gerarToken({id: id})
+            const token: string = this.autenticador.gerarToken({id: id})
 
             return token
         } catch (erro) {
@@ -45,20 +51,19 @@ export class UsuarioBusiness {
                 throw new Error("O campo email e senha são obrigatórios.")
             }
 
-            const resultado: UsuarioSaida = await usuarioBaseDeDados.PegarUsuarioPeloEmail(input.email)
+            const resultado: UsuarioSaida = await this.usuarioBaseDeDados.PegarUsuarioPeloEmail(input.email)
 
             if(!resultado) {
                 throw new Error("Usuário não cadastrado.")
             }
 
-            const SenhaEstaCorreta: boolean = await geradorDeHash.compare(input.senha,resultado.senha)
+            const SenhaEstaCorreta: boolean = await this.geradorDeHash.compare(input.senha,resultado.senha)
 
             if(!SenhaEstaCorreta) {
                 throw new Error("Senha inválida")
             }
 
-            const autenticador: Autenticador = new Autenticador()
-            const token: string = autenticador.gerarToken({id: resultado.id})
+            const token: string = this.autenticador.gerarToken({id: resultado.id})
 
             return token
 
@@ -69,15 +74,15 @@ export class UsuarioBusiness {
 
     public async PegarTodosOsUsuarios(token: string){
         try {
-            const IdUsuario: DadoAutenticacao = autenticador.pegarDado(token)
+            const IdUsuario: DadoAutenticacao = this.autenticador.pegarDado(token)
 
-            const usuario: UsuarioSaida = await usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id)
+            const usuario: UsuarioSaida = await this.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id)
 
             if(usuario.tipo.toUpperCase() !== "ADMIN"){
                 throw new Error("Usuário não autorizado. Somente administradores tem acesso a esses dados.")
             }
 
-            const resultado = usuarioBaseDeDados.PegarTodosOsUsuarios()
+            const resultado = this.usuarioBaseDeDados.PegarTodosOsUsuarios()
 
             return resultado
         } catch (erro) {
@@ -86,3 +91,10 @@ export class UsuarioBusiness {
     }
 
 }
+
+export default new UsuarioBusiness(
+    geradorDeId,
+    geradorDeHash,
+    usuarioBaseDeDados,
+    autenticador
+)

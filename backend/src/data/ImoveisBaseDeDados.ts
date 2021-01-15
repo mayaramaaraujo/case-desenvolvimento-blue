@@ -26,3 +26,5 @@ export class ImoveisBaseDeDados extends BaseBaseDeDados{
         }
     }
 }
+
+export const imovelBaseDeDados: ImoveisBaseDeDados = new ImoveisBaseDeDados()
