@@ -46,3 +46,5 @@ export class VotosBaseDeDados extends BaseBaseDeDados {
     }
 
 }
+
+export const votosBaseDeDados: VotosBaseDeDados = new VotosBaseDeDados()
