@@ -14,10 +14,6 @@ export class UsuarioBaseDeDados extends BaseBaseDeDados {
             })
             .into(this.NomesTabelas.usuarios)
         } catch (erro) {
-            if(erro.sqlMessage.includes("Duplicate entry")){
-                throw new Error("Usuário já existe.")
-            }
-
             throw new Error(erro.message || erro.sqlMessage)
         }
     }

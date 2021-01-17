@@ -34,7 +34,7 @@ exports.Usuario = Usuario;
 Usuario.UsuarioParaModelo = (usuario) => {
     return new Usuario(usuario.id, usuario.nome, usuario.email, usuario.senha, usuario.tipo);
 };
-const StringParaTipo = (entrada) => {
+exports.StringParaTipo = (entrada) => {
     switch (entrada) {
         case "NORMAL":
             return TipoUsuario.NORMAL;
@@ -44,7 +44,6 @@ const StringParaTipo = (entrada) => {
             throw new Error("Tipo inválido.");
     }
 };
-exports.StringParaTipo = StringParaTipo;
 var TipoUsuario;
 (function (TipoUsuario) {
     TipoUsuario["NORMAL"] = "NORMAL";
