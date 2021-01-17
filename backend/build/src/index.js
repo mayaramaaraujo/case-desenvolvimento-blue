@@ -17,6 +17,6 @@ app.use("/usuario", UsuarioRotas_1.usuarioRotas);
 app.use("/imovel", ImovelRotas_1.imovelRotas);
 app.use("/votos", VotoRotas_1.votoRotas);
 app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3003");
+    console.log("Servidor rodando na porta 3000");
 });
 //# sourceMappingURL=index.js.map
