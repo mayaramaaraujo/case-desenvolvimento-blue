@@ -25,6 +25,7 @@ class UsuarioBusiness {
     Cadastro(input) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(input.nome, input.senha, input.email);
                 if (!input.nome || !input.email || !input.senha) {
                     throw new Error("Preencha todos os campos");
                 }
