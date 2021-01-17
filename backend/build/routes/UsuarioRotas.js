@@ -10,4 +10,4 @@ exports.usuarioRotas = express_1.default.Router();
 const usuarioController = new UsuarioController_1.UsuarioController();
 exports.usuarioRotas.post("/cadastro", usuarioController.Cadastro);
 exports.usuarioRotas.post("/entrar", usuarioController.Entrar);
-//# sourceMappingURL=UsuarioRotas.js.map
+exports.usuarioRotas.get("/todos", usuarioController.PegarTodosOsUsuarios);

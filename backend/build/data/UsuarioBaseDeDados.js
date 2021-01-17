@@ -29,9 +29,6 @@ class UsuarioBaseDeDados extends BaseBaseDeDados_1.default {
                     .into(this.NomesTabelas.usuarios);
             }
             catch (erro) {
-                if (erro.sqlMessage.includes("Duplicate entry")) {
-                    throw new Error("Usuário já existe.");
-                }
                 throw new Error(erro.message || erro.sqlMessage);
             }
         });
@@ -64,7 +61,19 @@ class UsuarioBaseDeDados extends BaseBaseDeDados_1.default {
             }
         });
     }
+    PegarTodosOsUsuarios() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const resultado = yield this.connection()
+                    .select("*")
+                    .from(this.NomesTabelas.usuarios);
+                return resultado;
+            }
+            catch (erro) {
+                throw new Error(erro.message || erro.sqlMessage);
+            }
+        });
+    }
 }
 exports.UsuarioBaseDeDados = UsuarioBaseDeDados;
 exports.usuarioBaseDeDados = new UsuarioBaseDeDados();
-//# sourceMappingURL=UsuarioBaseDeDados.js.map

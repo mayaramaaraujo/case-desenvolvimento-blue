@@ -11,6 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VotoController = void 0;
 const VotosBusiness_1 = require("../business/VotosBusiness");
+const UsuarioBaseDeDados_1 = require("../data/UsuarioBaseDeDados");
+const VotosBaseDeDados_1 = require("../data/VotosBaseDeDados");
+const Autenticador_1 = require("../services/Autenticador");
+const GeradorDeId_1 = require("../services/GeradorDeId");
 class VotoController {
     Votar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -19,7 +23,7 @@ class VotoController {
                     token: req.headers.authorization,
                     imovel_votado: req.params.id
                 };
-                const votoBusiness = new VotosBusiness_1.VotosBusiness();
+                const votoBusiness = new VotosBusiness_1.VotosBusiness(GeradorDeId_1.geradorDeId, VotosBaseDeDados_1.votosBaseDeDados, Autenticador_1.autenticador, UsuarioBaseDeDados_1.usuarioBaseDeDados);
                 yield votoBusiness.Votar(input);
                 res.status(200).send({
                     message: "Voto realizado com sucesso!"
@@ -36,7 +40,7 @@ class VotoController {
                 const input = {
                     token: req.headers.authorization,
                 };
-                const votoBusiness = new VotosBusiness_1.VotosBusiness();
+                const votoBusiness = new VotosBusiness_1.VotosBusiness(GeradorDeId_1.geradorDeId, VotosBaseDeDados_1.votosBaseDeDados, Autenticador_1.autenticador, UsuarioBaseDeDados_1.usuarioBaseDeDados);
                 const resultado = yield votoBusiness.PegarTodosOsVotos(input.token);
                 res.status(200).send(resultado);
             }
@@ -56,7 +60,7 @@ class VotoController {
                     token: req.headers.authorization,
                     imovel_id: req.params.id
                 };
-                const votoBusiness = new VotosBusiness_1.VotosBusiness();
+                const votoBusiness = new VotosBusiness_1.VotosBusiness(GeradorDeId_1.geradorDeId, VotosBaseDeDados_1.votosBaseDeDados, Autenticador_1.autenticador, UsuarioBaseDeDados_1.usuarioBaseDeDados);
                 const resultado = yield votoBusiness.PegarVotosPorImovel(input.token, input.imovel_id);
                 res.status(200).send(resultado);
             }
@@ -67,4 +71,3 @@ class VotoController {
     }
 }
 exports.VotoController = VotoController;
-//# sourceMappingURL=VotoController.js.map

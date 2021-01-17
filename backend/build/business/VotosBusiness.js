@@ -16,6 +16,12 @@ const Votos_1 = require("../models/Votos");
 const Autenticador_1 = require("../services/Autenticador");
 const GeradorDeId_1 = require("../services/GeradorDeId");
 class VotosBusiness {
+    constructor(geradorDeId, votosBaseDeDados, autenticador, usuarioBaseDeDados) {
+        this.geradorDeId = geradorDeId;
+        this.votosBaseDeDados = votosBaseDeDados;
+        this.autenticador = autenticador;
+        this.usuarioBaseDeDados = usuarioBaseDeDados;
+    }
     Votar(input) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -25,16 +31,15 @@ class VotosBusiness {
                 if (!input.token) {
                     throw new Error("Usuário não autenticado.");
                 }
-                const idVoto = GeradorDeId_1.geradorDeId.gerar();
-                const IdUsuarioLogado = Autenticador_1.autenticador.pegarDado(input.token);
-                const usuario = yield UsuarioBaseDeDados_1.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuarioLogado.id);
+                const idVoto = this.geradorDeId.gerar();
+                const IdUsuarioLogado = this.autenticador.pegarDado(input.token);
+                const usuario = yield this.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuarioLogado.id);
                 const novoVoto = Votos_1.Voto.VotosParaModelo({
                     id: idVoto,
                     usuario_votante: usuario.id,
                     imovel_votado: input.imovel_votado
                 });
-                const votosBaseDeDados = new VotosBaseDeDados_1.VotosBaseDeDados();
-                yield votosBaseDeDados.Votar(novoVoto);
+                yield this.votosBaseDeDados.Votar(novoVoto);
             }
             catch (erro) {
                 throw new Error(erro.message || erro.sqlMessage);
@@ -44,14 +49,12 @@ class VotosBusiness {
     PegarTodosOsVotos(token) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const IdUsuario = Autenticador_1.autenticador.pegarDado(token);
-                const usuario = yield UsuarioBaseDeDados_1.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id);
+                const IdUsuario = this.autenticador.pegarDado(token);
+                const usuario = yield this.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id);
                 if (usuario.tipo.toUpperCase() !== "ADMIN") {
                     throw new Error("Usuário não autorizado. Somente administradores podem ver todos os votos.");
                 }
-                const votosBaseDeDados = new VotosBaseDeDados_1.VotosBaseDeDados();
-                const votos = yield votosBaseDeDados.PegarTodosOsVotos();
-                console.log(votos);
+                const votos = yield this.votosBaseDeDados.PegarTodosOsVotos();
                 return votos;
             }
             catch (erro) {
@@ -62,16 +65,15 @@ class VotosBusiness {
     PegarVotosPorImovel(token, imovel_id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const IdUsuario = Autenticador_1.autenticador.pegarDado(token);
-                const usuario = yield UsuarioBaseDeDados_1.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id);
+                const IdUsuario = this.autenticador.pegarDado(token);
+                const usuario = yield this.usuarioBaseDeDados.PegarUsuarioPeloId(IdUsuario.id);
                 if (usuario.tipo.toUpperCase() !== "ADMIN") {
                     throw new Error("Usuário não autorizado. Somente administradores podem ver todos os votos.");
                 }
                 if (!imovel_id) {
                     throw new Error("Nenhum imóvel para buscar.");
                 }
-                const votosBaseDeDados = new VotosBaseDeDados_1.VotosBaseDeDados();
-                const resultado = yield votosBaseDeDados.pegarVotosPorImovel(imovel_id);
+                const resultado = yield this.votosBaseDeDados.pegarVotosPorImovel(imovel_id);
                 return resultado;
             }
             catch (erro) {
@@ -81,4 +83,4 @@ class VotosBusiness {
     }
 }
 exports.VotosBusiness = VotosBusiness;
-//# sourceMappingURL=VotosBusiness.js.map
+exports.default = new VotosBusiness(GeradorDeId_1.geradorDeId, VotosBaseDeDados_1.votosBaseDeDados, Autenticador_1.autenticador, UsuarioBaseDeDados_1.usuarioBaseDeDados);

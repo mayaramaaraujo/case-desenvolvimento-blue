@@ -25,11 +25,11 @@ class BaseBaseDeDados {
         this.connection = knex_1.default({
             client: "mysql",
             connection: {
-                host: "127.0.0.1",
+                host: process.env.DB_HOST,
                 port: 3306,
-                user: "root",
-                password: "password",
-                database: "case_blue"
+                user: process.env.DB_USER,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_NAME
             }
         });
     }
@@ -40,4 +40,3 @@ class BaseBaseDeDados {
     }
 }
 exports.default = BaseBaseDeDados;
-//# sourceMappingURL=BaseBaseDeDados.js.map

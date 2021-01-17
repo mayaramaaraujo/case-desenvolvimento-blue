@@ -9,4 +9,3 @@ class GeradorDeId {
 }
 exports.GeradorDeId = GeradorDeId;
 exports.geradorDeId = new GeradorDeId();
-//# sourceMappingURL=GeradorDeId.js.map

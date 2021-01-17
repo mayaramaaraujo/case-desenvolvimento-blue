@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VotosBaseDeDados = void 0;
+exports.votosBaseDeDados = exports.VotosBaseDeDados = void 0;
 const BaseBaseDeDados_1 = __importDefault(require("./BaseBaseDeDados"));
 class VotosBaseDeDados extends BaseBaseDeDados_1.default {
     Votar(input) {
@@ -53,7 +53,7 @@ class VotosBaseDeDados extends BaseBaseDeDados_1.default {
                 const resultado = yield this.connection
                     .select("*")
                     .from("votos")
-                    .where("id", imovel_id);
+                    .where("imovel_votado", imovel_id);
                 return resultado;
             }
             catch (erro) {
@@ -63,4 +63,4 @@ class VotosBaseDeDados extends BaseBaseDeDados_1.default {
     }
 }
 exports.VotosBaseDeDados = VotosBaseDeDados;
-//# sourceMappingURL=VotosBaseDeDados.js.map
+exports.votosBaseDeDados = new VotosBaseDeDados();

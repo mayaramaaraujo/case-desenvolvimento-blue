@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ImoveisBaseDeDados = void 0;
+exports.imovelBaseDeDados = exports.ImoveisBaseDeDados = void 0;
 const BaseBaseDeDados_1 = __importDefault(require("./BaseBaseDeDados"));
 class ImoveisBaseDeDados extends BaseBaseDeDados_1.default {
     CadastrarImovel(imovel) {
@@ -44,4 +44,4 @@ class ImoveisBaseDeDados extends BaseBaseDeDados_1.default {
     }
 }
 exports.ImoveisBaseDeDados = ImoveisBaseDeDados;
-//# sourceMappingURL=ImoveisBaseDeDados.js.map
+exports.imovelBaseDeDados = new ImoveisBaseDeDados();

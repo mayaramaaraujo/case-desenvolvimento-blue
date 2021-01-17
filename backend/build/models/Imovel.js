@@ -19,4 +19,3 @@ exports.Imovel = Imovel;
 Imovel.ImovelParaModelo = (imovel) => {
     return new Imovel(imovel.id, imovel.nome);
 };
-//# sourceMappingURL=Imovel.js.map

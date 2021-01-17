@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const UsuarioBusiness_1 = require("../src/business/UsuarioBusiness");
-const BaseBaseDeDados_1 = __importDefault(require("../src/data/BaseBaseDeDados"));
+const UsuarioBusiness_1 = require("../business/UsuarioBusiness");
+const BaseBaseDeDados_1 = __importDefault(require("../data/BaseBaseDeDados"));
 describe("Cadastro", () => {
     const geradorDeId = { gerar: jest.fn() };
     const geradorDeHash = {};
@@ -89,4 +89,3 @@ describe("Integração cadastro", () => {
         BaseBaseDeDados_1.default.destroyConnection();
     }));
 });
-//# sourceMappingURL=UsuarioBusiness.test.js.map

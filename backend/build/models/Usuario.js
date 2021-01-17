@@ -50,4 +50,3 @@ var TipoUsuario;
     TipoUsuario["NORMAL"] = "NORMAL";
     TipoUsuario["ADMIN"] = "ADMIN";
 })(TipoUsuario = exports.TipoUsuario || (exports.TipoUsuario = {}));
-//# sourceMappingURL=Usuario.js.map

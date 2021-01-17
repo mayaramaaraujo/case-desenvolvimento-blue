@@ -1,1 +1,0 @@
-{"version":3,"file":"UsuarioRotas.js","sourceRoot":"","sources":["../../src/routes/UsuarioRotas.ts"],"names":[],"mappings":";;;;;;AAAA,sDAA6B;AAC7B,uEAAoE;AAEvD,QAAA,YAAY,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAE7C,MAAM,iBAAiB,GAAG,IAAI,qCAAiB,EAAE,CAAA;AAEjD,oBAAY,CAAC,IAAI,CAAC,WAAW,EAAE,iBAAiB,CAAC,QAAQ,CAAC,CAAA;AAC1D,oBAAY,CAAC,IAAI,CAAC,SAAS,EAAE,iBAAiB,CAAC,MAAM,CAAC,CAAA"}

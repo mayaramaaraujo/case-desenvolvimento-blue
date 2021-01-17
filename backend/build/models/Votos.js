@@ -18,4 +18,3 @@ exports.Voto = Voto;
 Voto.VotosParaModelo = (voto) => {
     return new Voto(voto.id, voto.usuario_votante, voto.imovel_votado);
 };
-//# sourceMappingURL=Votos.js.map

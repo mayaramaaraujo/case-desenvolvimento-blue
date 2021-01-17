@@ -19,4 +19,3 @@ app.use("/votos", VotoRotas_1.votoRotas);
 app.listen(3003, () => {
     console.log("Servidor rodando na porta 3003");
 });
-//# sourceMappingURL=index.js.map

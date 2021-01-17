@@ -48,4 +48,3 @@ class GeradorDeHash {
 }
 exports.GeradorDeHash = GeradorDeHash;
 exports.geradorDeHash = new GeradorDeHash();
-//# sourceMappingURL=GeradorDeHash.js.map

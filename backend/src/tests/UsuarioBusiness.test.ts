@@ -1,5 +1,5 @@
-import { usuarioBusiness, UsuarioBusiness } from "../src/business/UsuarioBusiness"
-import BaseBaseDeDados from "../src/data/BaseBaseDeDados"
+import { usuarioBusiness, UsuarioBusiness } from "../business/UsuarioBusiness"
+import BaseBaseDeDados from "../data/BaseBaseDeDados"
 
 describe("Cadastro", ()=> {
     const geradorDeId = {gerar: jest.fn()}

@@ -15,6 +15,8 @@ export class UsuarioBusiness {
 
     public async Cadastro(input: UsuarioEntrada): Promise<any> {
         try {
+            console.log(input.nome, input.senha, input.email)
+
             if(!input.nome || !input.email || !input.senha) {
                 throw new Error("Preencha todos os campos")
             }
