@@ -29,9 +29,6 @@ class UsuarioBaseDeDados extends BaseBaseDeDados_1.default {
                     .into(this.NomesTabelas.usuarios);
             }
             catch (erro) {
-                if (erro.sqlMessage.includes("Duplicate entry")) {
-                    throw new Error("Usuário já existe.");
-                }
                 throw new Error(erro.message || erro.sqlMessage);
             }
         });
