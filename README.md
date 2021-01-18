@@ -6,8 +6,8 @@
 <p> - npm run start </p>
 
 
-## Para dar start backend
-<p>abrir case-desenvolvimento-blue/backend</p>
+## Para dar start frontend
+<p>abrir case-desenvolvimento-blue/frontend</p>
 <p>- npm install </p>
 <p>- npm run start </p>
 
